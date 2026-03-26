@@ -229,6 +229,14 @@ Este proyecto esta basado en [codebase-to-course](https://github.com/nichochar/c
 
 ---
 
+## Creador
+
+Desarrollado por **Raul Quilantan**
+
+[Contactar por WhatsApp](https://wa.me/52834130945)
+
+---
+
 ## Licencia
 
 MIT
