@@ -68,40 +68,94 @@ CursorLEx/
 
 ---
 
-## Instalacion
+## Requisitos previos
 
-### Opcion 1: Como skill local de proyecto
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) instalado y funcionando
+- Una suscripcion activa a Claude (Pro, Team o Enterprise)
+- Terminal con acceso a bash/zsh
 
-Copia la carpeta `skill/` dentro de `.claude/skills/reglabot/` en tu proyecto:
+### Instalar Claude Code
+
+Si aun no tienes Claude Code:
+
+```bash
+# macOS / Linux
+npm install -g @anthropic-ai/claude-code
+
+# Verificar instalacion
+claude --version
+```
+
+> Para mas detalles, consulta la [documentacion oficial de Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+
+---
+
+## Instalacion de ReglaBot
+
+### Paso 1: Clona el repositorio
+
+```bash
+git clone https://github.com/tu-usuario/CursorLEx.git
+cd CursorLEx
+```
+
+### Paso 2: Instala el skill (elige una opcion)
+
+#### Opcion A: Skill local (solo en este proyecto)
+
+Instala el skill para que funcione solo dentro de este directorio:
 
 ```bash
 mkdir -p .claude/skills/reglabot/references
+
 cp skill/SKILL.md .claude/skills/reglabot/SKILL.md
 cp skill/references/design-system.md .claude/skills/reglabot/references/design-system.md
 cp skill/references/interactive-elements.md .claude/skills/reglabot/references/interactive-elements.md
 ```
 
-### Opcion 2: Como skill global de usuario
+#### Opcion B: Skill global (disponible en cualquier proyecto)
+
+Instala el skill para que funcione desde cualquier directorio:
 
 ```bash
 mkdir -p ~/.claude/skills/reglabot/references
+
 cp skill/SKILL.md ~/.claude/skills/reglabot/SKILL.md
 cp skill/references/design-system.md ~/.claude/skills/reglabot/references/design-system.md
 cp skill/references/interactive-elements.md ~/.claude/skills/reglabot/references/interactive-elements.md
 ```
 
+### Paso 3: Verifica la instalacion
+
+Abre Claude Code en el directorio donde instalaste el skill:
+
+```bash
+claude
+```
+
+Escribe `ReglaBot` y deberia activarse mostrando el mensaje de bienvenida.
+
 ---
 
 ## Uso
 
-En Claude Code, escribe cualquiera de estos:
+### Inicio rapido
+
+Abre Claude Code y escribe:
 
 ```
 ReglaBot
 ```
 
+El skill te pedira dos cosas:
+1. **La norma** — un PDF, una URL al texto oficial, o pega el texto directamente
+2. **Tu rol** — descripcion de tu puesto profesional
+
+### Ejemplos de prompts
+
 ```
-Hazme una guia de cumplimiento de la Ley Federal de Proteccion de Datos Personales para un gerente de marketing
+Hazme una guia de cumplimiento de la Ley Federal de Proteccion de Datos
+Personales para un gerente de marketing
 ```
 
 ```
@@ -112,11 +166,50 @@ Convierte este PDF de la NOM-035 en guia para un director de RRHH
 Explica el RGPD para el CTO de una startup
 ```
 
-ReglaBot te pedira:
-1. **La norma** — PDF, URL al texto oficial, o texto pegado directamente
-2. **Tu rol** — descripcion de tu puesto profesional
+```
+Guia de cumplimiento del Reglamento de Movilidad de Nuevo Leon
+para un analista en movilidad
+```
 
-Y generara un archivo HTML autocontenido que puedes abrir en cualquier navegador.
+### Tambien puedes pasar un archivo directamente
+
+```bash
+# Si tienes un PDF de la norma en tu directorio:
+claude "ReglaBot: hazme una guia de cumplimiento de este PDF para un contador independiente" --file mi-norma.pdf
+```
+
+### Resultado
+
+ReglaBot genera un **archivo HTML unico** (sin dependencias excepto Google Fonts) que puedes:
+
+- Abrir en cualquier navegador
+- Compartir por correo o chat (es un solo archivo)
+- Usar sin internet (despues de la primera carga)
+- El checklist de cumplimiento guarda tu progreso en el navegador (localStorage)
+
+---
+
+## Ejemplo: flujo completo paso a paso
+
+```bash
+# 1. Clona e instala
+git clone https://github.com/tu-usuario/CursorLEx.git
+cd CursorLEx
+mkdir -p .claude/skills/reglabot/references
+cp skill/SKILL.md .claude/skills/reglabot/SKILL.md
+cp skill/references/*.md .claude/skills/reglabot/references/
+
+# 2. Abre Claude Code
+claude
+
+# 3. Dentro de Claude Code, escribe:
+#    "Hazme una guia de la NOM-035 para un director de RRHH"
+
+# 4. ReglaBot analiza la norma, genera el HTML y lo abre en tu navegador
+
+# 5. El archivo generado queda en tu directorio de trabajo
+#    (ejemplo: guia-nom035-rrhh.html)
+```
 
 ---
 
